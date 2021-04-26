@@ -27,8 +27,12 @@ routes.get('/api/movies/count', async (request, response) => {
   myMap.forEach((value, key) => {
     listaAno.push({ year: key, movie: value });
   });
-  response.json({ 'movesByYear': listaAno, total: link.data.total });
+  response.json({ 'moviesByYear': listaAno, total: link.data.total });
 });
 
+routes.get('/api/movies/moviesByYear', async (request, response) => {
+  const link = await axios.get(`https://jsonmock.hackerrank.com/api/movies/search/?Title=${request.query.Title}&page=${request.query.page}&Year=${request.query.year}`);
+  response.json(link.data);
+})
 
 export default routes;
